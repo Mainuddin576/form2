@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Problem Solving Form</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f4f6fb; margin: 0; padding: 20px; }
+  .box { max-width: 650px; margin: auto; background: #fff; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+  h1 { text-align: center; color: #2c3e50; font-size: 24px; }
+  h2 { color: #2980b9; font-size: 18px; margin-top: 25px; }
+  label { display: block; margin-top: 12px; font-weight: bold; color: #34495e; }
+  input, textarea, select { width: 100%; padding: 9px; margin-top: 5px; border: 1px solid #bbb; border-radius: 6px; font-size: 15px; box-sizing: border-box; }
+  button { margin-top: 20px; padding: 10px 18px; border: none; border-radius: 6px; font-size: 15px; cursor: pointer; color: #fff; }
+  .show { background: #27ae60; }
+  .clear { background: #c0392b; margin-left: 8px; }
+  #result { margin-top: 25px; display: none; }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  th, td { border: 1px solid #999; padding: 8px; text-align: left; }
+  th { background: #ecf0f1; width: 35%; }
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>Problem Solving Form</h1>
+
+  <label>Problem</label>
+  <input type="text" id="problem" placeholder="e.g. 8-Puzzle">
+
+  <h2>Step 1: Goal Formulation</h2>
+  <label>Goal kya hai?</label>
+  <input type="text" id="goal" placeholder="e.g. Tiles ko 1-8 order mein lagana">
+
+  <h2>Step 2: Problem Formulation</h2>
+  <label>Initial State</label>
+  <input type="text" id="initial">
+  <label>Actions</label>
+  <input type="text" id="actions">
+  <label>Transition Model</label>
+  <input type="text" id="transition">
+  <label>Goal Test</label>
+  <input type="text" id="goaltest">
+  <label>Path Cost</label>
+  <input type="text" id="cost">
+
+  <h2>Step 3: Search</h2>
+  <label>Kaun sa algorithm?</label>
+  <select id="algo">
+    <option>BFS</option>
+    <option>DFS</option>
+    <option>Iterative Deepening</option>
+    <option>Greedy Best-First</option>
+    <option>A*</option>
+    <option>Hill Climbing</option>
+    <option>Simulated Annealing</option>
+  </select>
+
+  <h2>Step 4: Execution</h2>
+  <label>Mila hua solution / path</label>
+  <textarea id="solution" rows="3"></textarea>
+
+  <button class="show" onclick="showResult()">Show Answer</button>
+  <button class="clear" onclick="clearAll()">Clear</button>
+
+  <div id="result"></div>
+</div>
+
+<script>
+  const ids = ["problem","goal","initial","actions","transition","goaltest","cost","algo","solution"];
+
+  function v(id) { return document.getElementById(id).value || "-"; }
+
+  function showResult() {
+    const html =
+      "<h2>Final Answer</h2>" +
+      "<p><b>Problem:</b> " + v("problem") + "</p>" +
+      "<p><b>Goal:</b> " + v("goal") + "</p>" +
+      "<table>" +
+      "<tr><th>Initial State</th><td>" + v("initial") + "</td></tr>" +
+      "<tr><th>Actions</th><td>" + v("actions") + "</td></tr>" +
+      "<tr><th>Transition Model</th><td>" + v("transition") + "</td></tr>" +
+      "<tr><th>Goal Test</th><td>" + v("goaltest") + "</td></tr>" +
+      "<tr><th>Path Cost</th><td>" + v("cost") + "</td></tr>" +
+      "</table>" +
+      "<p><b>Search Algorithm:</b> " + v("algo") + "</p>" +
+      "<p><b>Solution:</b> " + v("solution") + "</p>";
+    const r = document.getElementById("result");
+    r.innerHTML = html;
+    r.style.display = "block";
+  }
+
+  function clearAll() {
+    ids.forEach(function(id) {
+      const el = document.getElementById(id);
+      if (el.tagName === "SELECT") el.selectedIndex = 0; else el.value = "";
+    });
+    document.getElementById("result").style.display = "none";
+  }
+</script>
+</body>
+</html>
